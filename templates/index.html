@@ -1,16 +1,161 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUDLFT Registration</title>
+    <title>Réservation Compétition</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff7e0; /* Couleur de fond jaune pâle */
+            color: #333;
+        }
+
+        header {
+            background-color: #ffa000; /* Couleur de l'en-tête jaune */
+            color: #fff; /* Texte blanc */
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .flash-messages {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .flash-message {
+            color: #4caf50; /* Couleur de message flashée verte */
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 300px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ffa000; /* Couleur de bouton jaune */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff8f00; /* Couleur de survol de bouton orange */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ffa000; /* Couleur d'en-tête de tableau jaune */
+            color: #fff; /* Texte blanc */
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Welcome to the GUDLFT Registration Portal!</h1>
-    Please enter your secretary email to continue:
+    <header>
+        <h1>Réservation Compétition</h1> <!-- Titre en-tête modifié -->
+    </header>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="flash-message">{{ message }}</p> <!-- Message flashé sans émoticône -->
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
     <form action="showSummary" method="post">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id=""/>
-        <button type="submit">Enter</button>
+        <label for="email">Veuillez saisir l'e-mail de votre secrétaire pour continuer :</label>
+        <input type="email" name="email" required/>
+        <button type="submit">Connexion</button> <!-- Texte du bouton modifié -->
     </form>
+
+    <h2>Informations sur tous les clubs</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom du club</th>
+                <th>Email</th>
+                <th>Points disponibles</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for club in clubs %}
+            <tr>
+                <td>{{ club['name'] }}</td>
+                <td>{{ club['email'] }}</td>
+                <td>{{ club['points'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h2>Informations sur toutes les compétitions</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom compétition</th>
+                <th>Date</th>
+                <th>Places disponibles</th> <!-- Texte modifié -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for comp in competitions %}
+            <tr>
+                <td>{{ comp['name'] }}</td>
+                <td>{{ comp['date'] }}</td>
+                <td>{{ comp['numberOfPlaces'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </body>
+
 </html>

@@ -1,36 +1,58 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summary | GUDLFT Registration</title>
+    <title>Résumé | Inscription GUDLFT</title>
+    <!-- Intégration de Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-        <h2>Welcome, {{club['email']}} </h2><a href="{{url_for('logout')}}">Logout</a>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffa000;"> <!-- Jaune -->
+        <a class="navbar-brand" href="#">Achat de billets</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span class="navbar-text" style="color: #333;"> <!-- Texte noir -->
+                        Bienvenue, {{ club['email'] }}
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}" style="color: #333;">Déconnexion</a> <!-- Texte noir -->
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    {% with messages = get_flashed_messages()%}
-    {% if messages %}
-        <ul>
-       {% for message in messages %}
-            <li>{{message}}</li>
-        {% endfor %}
-       </ul>
-    {% endif%}
-    Points available: {{club['points']}}
-    <h3>Competitions:</h3>
-    <ul>
-        {% for comp in competitions%}
-        <li>
-            {{comp['name']}}<br />
-            Date: {{comp['date']}}</br>
-            Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0%}
-            <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-            {%endif%}
-        </li>
-        <hr />
-        {% endfor %}
-    </ul>
-    {%endwith%}
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="list-group">
+                    {% for message in messages %}
+                        <li class="list-group-item">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <p>Points disponibles : {{ club['points'] }}</p>
+        <h3>Compétitions :</h3>
+        <ul class="list-group">
+            {% for comp in competitions %}
+                <li class="list-group-item">
+                    {{ comp['name'] }}<br>
+                    Date : {{ comp['date'] }}<br>
+                    Nombre de places : {{ comp['numberOfPlaces'] }}
+                    {% if comp['numberOfPlaces']|int > 0 %}
+                        <a href="{{ url_for('book', competition=comp['name'], club=club['name']) }}" class="btn btn-primary" style="background-color: #ffa000; border-color: #ffa000;">Réserver des places</a> <!-- Jaune -->
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
+    <!-- Intégration de Bootstrap JS (facultatif, seulement si nécessaire) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
