@@ -1,4 +1,4 @@
-import sys
+import sys, json
 from pathlib import Path
 
 project_root = Path(__file__).resolve().parent.parent
@@ -29,4 +29,8 @@ class TestCompetitions(unittest.TestCase):
         {"name": "Fall Classic","date": "2024-10-22 13:30:00","numberOfPlaces": "13"},
         ]
         self.assertEqual(comps,expected_comps)
+   
+        
+        
+
 

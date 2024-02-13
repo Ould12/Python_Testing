@@ -1,8 +1,8 @@
-import sys
+import sys,json
 from pathlib import Path
 import pytest
 from flask import Flask, render_template, request, flash, get_flashed_messages
-from server import app, loadClubs, loadCompetitions
+from server import app, load_clubs, load_competitions
 
 
 project_root = Path(__file__).resolve().parent.parent
@@ -17,14 +17,16 @@ def client():
         yield client
 
 # Test loadClubs function
-def test_loadClubs():
-    clubs = loadClubs()
+def test_load_clubs():
+    clubs = load_clubs()
     assert isinstance(clubs, list)
     assert all(isinstance(club, dict) for club in clubs)
+    
+
 
 # Test loadCompetitions function
-def test_loadCompetitions():
-    competitions = loadCompetitions()
+def test_load_competitions():
+    competitions = load_competitions()
     assert isinstance(competitions, list)
     assert all(isinstance(competition, dict) for competition in competitions)
 

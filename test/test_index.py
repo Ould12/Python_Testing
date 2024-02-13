@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from server import app, loadClubs, loadCompetitions
+from server import app, load_clubs, load_competitions
 
 @pytest.fixture
 def client():
@@ -10,8 +10,8 @@ def client():
 
 def test_index(client):
     # Chargement des clubs et des compétitions depuis le JSON
-    competitions = loadCompetitions(datetime.strptime("2024-02-12 09:00:00", "%Y-%m-%d %H:%M:%S"))
-    clubs = loadClubs()
+    competitions = load_competitions(datetime.strptime("2024-02-12 09:00:00", "%Y-%m-%d %H:%M:%S"))
+    clubs = load_clubs()
     
     # Envoyer une demande GET à la route index
     response = client.get('/')
